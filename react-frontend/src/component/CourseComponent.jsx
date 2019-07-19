@@ -38,18 +38,17 @@ class CourseComponent extends Component {
       targetDate: values.targetDate
     };
     if (this.state.id == -1) {
-      CourseDataService.retrieveCourse(INSTRUCTOR, this.state.id).then(
+      /*CourseDataService.retrieveCourse(INSTRUCTOR, this.state.id).then(
         response => this.props.history.push("/courses")
-      );
-
-      /*axios
-        .post(`${INSTRUCTOR_API_URL}/courses/`, course)
-        .then(() => this.props.history.push("/courses"));*/
-    } else {
-      //console.log(`${INSTRUCTOR_API_URL}/courses/${id}`);
-      /*CourseDataService.updateCourse(INSTRUCTOR, this.state.id, course).then(() =>
-        this.props.history.push("/courses")
       );*/
+
+      axios
+        .post(`${INSTRUCTOR_API_URL}/courses/`, course)
+        .then(() => this.props.history.push("/courses"));
+    } else {
+      axios
+        .put(`${INSTRUCTOR_API_URL}/courses/${course.id}`, course)
+        .then(() => this.props.history.push("/courses"));
     }
   }
   validate(values) {
@@ -83,6 +82,8 @@ class CourseComponent extends Component {
               }
               return errors;
             }}
+            validateOnChange={false}
+            validateOnBlur={false}
           >
             {props => (
               <Form>
